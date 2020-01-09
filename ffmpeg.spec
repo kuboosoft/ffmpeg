@@ -192,6 +192,7 @@ mkdir -p %{buildroot}/etc/profile.d/
 mkdir -p %{buildroot}/etc/ld.so.conf.d/
 echo 'export PATH=/usr/bin/ffmpeg:$PATH' > "%{buildroot}/etc/profile.d/ffmpeg.sh"
 echo '/usr/lib64/ffmpeg/' > "%{buildroot}/etc/ld.so.conf.d/ffmpeg.conf"
+ls %{buildroot}/etc/profile.d/
 
 if [ ! -f %{buildroot}/etc/profile.d/ffmpeg.sh ]; then
 echo "macro buildroot missed, current path $PWD"
@@ -200,11 +201,6 @@ fi
 
 make install DESTDIR="%{buildroot}" V=0
 rm -rf %{buildroot}/usr/share/ffmpeg/examples
-
-pushd %{buildroot}/usr/bin/
-ls
-cp -f * "%{buildroot}/usr/bin/ffmpeg-freeworld/"
-popd
 
 
 %post libs -p /sbin/ldconfig
@@ -219,9 +215,9 @@ popd
 %files
 %defattr(-,root,root,-)
 %doc COPYING.* CREDITS README.md 
-/usr/bin/ffmpeg/ffmpeg
-/usr/bin/ffmpeg/ffplay
-/usr/bin/ffmpeg/ffprobe
+/usr/bin/ffmpeg-freeworld/ffmpeg
+/usr/bin/ffmpeg-freeworld/ffplay
+/usr/bin/ffmpeg-freeworld/ffprobe
 /usr/share/ffmpeg/
 /usr/share/man/
 #/etc/profile.d/ffmpeg.sh
