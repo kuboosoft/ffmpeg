@@ -123,11 +123,11 @@ cp -pr doc/examples/{*.c,Makefile,README} _doc/examples/
 #export no_proxy=localhost,127.0.0.1,0.0.0.0
 #export LANG=C.UTF-8
 export SOURCE_DATE_EPOCH=1571938166
-#export GCC_IGNORE_WERROR=1
-#export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-#export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-#export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-#export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 
 ./configure \
     --prefix=/usr \
@@ -138,7 +138,6 @@ export SOURCE_DATE_EPOCH=1571938166
     --libdir=/usr/lib64/ffmpeg \
     --mandir=/usr/share/man \
     --pkgconfigdir=/usr/share/pkgconfig \
-    --enable-lto \
     --arch=%{_target_cpu} \
     --extra-ldflags='-ldl' \
     --enable-vaapi \
