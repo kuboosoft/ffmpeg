@@ -202,17 +202,17 @@ rm -rf %{buildroot}/usr/share/ffmpeg/examples
 
 %post
 # Install profile and ld.so.config files
-mkdir -p %{buildroot}/etc/profile.d/
+mkdir -p /etc/profile.d/
 echo 'export PATH=/usr/bin/ffmpeg:$PATH' > /etc/profile.d/ffmpeg.sh
 
 %preun
 rm -f /etc/profile.d/ffmpeg.sh
 
-%post libs -p /sbin/ldconfig
-mkdir -p %{buildroot}/etc/ld.so.conf.d/
+%post libs 
+mkdir -p /etc/ld.so.conf.d/
 echo '/usr/lib64/ffmpeg/' > /etc/ld.so.conf.d/ffmpeg.conf
 
-%postun libs -p /sbin/ldconfig
+%postun libs 
 rm -f /etc/ld.so.conf.d/ffmpeg.conf
 
 %post -n libavdevice -p /sbin/ldconfig
