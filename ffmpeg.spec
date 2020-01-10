@@ -183,23 +183,19 @@ make documentation V=0
 make alltools V=0
 
 %install
+rm -rf %{buildroot}
 
 export SOURCE_DATE_EPOCH=1571938166
-rm -rf %{buildroot}
+
+
+make install DESTDIR="%{buildroot}" V=0
+rm -rf %{buildroot}/usr/share/ffmpeg/examples
 
 # Install profile and ld.so.config files
 mkdir -p %{buildroot}/etc/profile.d/
 mkdir -p %{buildroot}/etc/ld.so.conf.d/
-echo 'export PATH=/usr/bin/ffmpeg:$PATH' > "%{buildroot}/etc/profile.d/ffmpeg.sh"
-echo '/usr/lib64/ffmpeg/' > "%{buildroot}/etc/ld.so.conf.d/ffmpeg.conf"
-
-if [ ! -f %{buildroot}/etc/profile.d/ffmpeg.sh ]; then
-echo "macro buildroot missed, current path $PWD"
-exit 1
-fi
-
-make install DESTDIR="%{buildroot}" V=0
-rm -rf %{buildroot}/usr/share/ffmpeg/examples
+echo 'export PATH=/usr/bin/ffmpeg:$PATH' > %{buildroot}/etc/profile.d/ffmpeg.sh
+echo '/usr/lib64/ffmpeg/' > %{buildroot}/etc/ld.so.conf.d/ffmpeg.conf
 
 
 %post libs -p /sbin/ldconfig
