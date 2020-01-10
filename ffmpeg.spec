@@ -192,7 +192,6 @@ mkdir -p %{buildroot}/etc/profile.d/
 mkdir -p %{buildroot}/etc/ld.so.conf.d/
 echo 'export PATH=/usr/bin/ffmpeg:$PATH' > "%{buildroot}/etc/profile.d/ffmpeg.sh"
 echo '/usr/lib64/ffmpeg/' > "%{buildroot}/etc/ld.so.conf.d/ffmpeg.conf"
-ls %{buildroot}/etc/profile.d/
 
 if [ ! -f %{buildroot}/etc/profile.d/ffmpeg.sh ]; then
 echo "macro buildroot missed, current path $PWD"
