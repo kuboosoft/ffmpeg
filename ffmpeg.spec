@@ -1,6 +1,14 @@
 %define abi_package %{nil}
 # We need test and avoid conflicts in bundle packages in CL
-AutoReqProv: no
+
+%{?filter_setup:
+%filter_requires_in %{_libdir}/ffmpeg/.*\.so$
+%filter_provides_in %{_libdir}/ffmpeg/.*\\.so$ 
+%filter_setup
+}
+
+%global debug_package %{nil}
+
 
 %global commit0 192d1d34eb3668fa27f433e96036340e1e5077a0
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
@@ -110,16 +118,16 @@ mkdir -p _doc/examples
 cp -pr doc/examples/{*.c,Makefile,README} _doc/examples/
 
 %build
-export http_proxy=http://127.0.0.1:9/
-export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C.UTF-8
+#export http_proxy=http://127.0.0.1:9/
+#export https_proxy=http://127.0.0.1:9/
+#export no_proxy=localhost,127.0.0.1,0.0.0.0
+#export LANG=C.UTF-8
 export SOURCE_DATE_EPOCH=1571938166
-export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+#export GCC_IGNORE_WERROR=1
+#export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+#export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+#export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+#export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 
 ./configure \
     --prefix=/usr \
@@ -130,6 +138,7 @@ export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved
     --libdir=/usr/lib64/ffmpeg \
     --mandir=/usr/share/man \
     --pkgconfigdir=/usr/share/pkgconfig \
+    --enable-lto \
     --arch=%{_target_cpu} \
     --extra-ldflags='-ldl' \
     --enable-vaapi \
