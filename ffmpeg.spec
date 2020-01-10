@@ -2,8 +2,8 @@
 # We need test and avoid conflicts in bundle packages in CL
 
 %{?filter_setup:
-%filter_requires_in %{_libdir}/ffmpeg/.*\.so$
-%filter_provides_in %{_libdir}/ffmpeg/.*\\.so$ 
+%filter_requires_in /usr/lib64/ffmpeg/.*\.so$
+%filter_provides_in /usr/lib64/ffmpeg/.*\\.so$ 
 %filter_setup
 }
 
@@ -199,16 +199,21 @@ export SOURCE_DATE_EPOCH=1571938166
 make install DESTDIR="%{buildroot}" V=0
 rm -rf %{buildroot}/usr/share/ffmpeg/examples
 
+
+%post
 # Install profile and ld.so.config files
 mkdir -p %{buildroot}/etc/profile.d/
-mkdir -p %{buildroot}/etc/ld.so.conf.d/
-echo 'export PATH=/usr/bin/ffmpeg:$PATH' > %{buildroot}/etc/profile.d/ffmpeg.sh
-echo '/usr/lib64/ffmpeg/' > %{buildroot}/etc/ld.so.conf.d/ffmpeg.conf
+echo 'export PATH=/usr/bin/ffmpeg:$PATH' > /etc/profile.d/ffmpeg.sh
 
+%preun
+rm -f /etc/profile.d/ffmpeg.sh
 
 %post libs -p /sbin/ldconfig
+mkdir -p %{buildroot}/etc/ld.so.conf.d/
+echo '/usr/lib64/ffmpeg/' > /etc/ld.so.conf.d/ffmpeg.conf
 
 %postun libs -p /sbin/ldconfig
+rm -f /etc/ld.so.conf.d/ffmpeg.conf
 
 %post -n libavdevice -p /sbin/ldconfig
 
