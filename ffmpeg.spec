@@ -3,8 +3,6 @@
 
 %define debug_package %{nil}
 
-%_use_internal_dependency_generator	0
-AutoProv: no
 %undefine %__find_provides
 %undefine %__find_requires
 
