@@ -7,7 +7,8 @@
 %filter_setup
 }
 
-%global debug_package %{nil}
+%undefine __find_requires
+%undefine __find_provides 
 
 
 %global commit0 192d1d34eb3668fa27f433e96036340e1e5077a0
