@@ -1,15 +1,17 @@
 %define abi_package %{nil}
 # We need test and avoid conflicts in bundle packages in CL
 
-%global debug_package %{nil}
+%define debug_package %{nil}
 
-%global __find_requires %{nil}
-%global __find_provides %{nil}
+%_use_internal_dependency_generator	0
+AutoProv: no
+%undefine %__find_provides
+%undefine %__find_requires
 
 # Do not try autogenerate prereq/conflicts/obsoletes and check files
-%global __check_files %{nil}
-%global __find_conflicts %{nil}
-%global __find_obsoletes %{nil}
+%undefine %___check_files 
+%undefine %___find_conflicts 
+%undefine %___find_obsoletes 
 ###
 
 %global commit0 192d1d34eb3668fa27f433e96036340e1e5077a0
