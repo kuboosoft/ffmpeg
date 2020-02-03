@@ -1,6 +1,15 @@
 %define abi_package %{nil}
 # We need test and avoid conflicts in bundle packages in CL
 
+%{?filter_setup:
+%filter_requires_in /usr/lib64/ffmpeg/.*\.so$
+%filter_provides_in /usr/lib64/ffmpeg/.*\\.so$ 
+%filter_setup
+}
+
+%global debug_package %{nil}
+
+AutoReqProv: no
 AutoProv: no
 %undefine __find_provides
 AutoReq: no
@@ -10,7 +19,7 @@ AutoReq: no
 %undefine __find_prereq
 %undefine __find_conflicts
 %undefine __find_obsoletes 
-
+###
 
 %global commit0 192d1d34eb3668fa27f433e96036340e1e5077a0
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
