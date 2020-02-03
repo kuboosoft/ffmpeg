@@ -2,8 +2,8 @@
 # We need test and avoid conflicts in bundle packages in CL
 
 %{?filter_setup:
-%filter_requires_in /usr/lib64/ffmpeg/.*\.so$
-%filter_provides_in /usr/lib64/ffmpeg/.*\\.so$ 
+%filter_requires_in /usr/lib64/ffmpeg/
+%filter_provides_in /usr/lib64/ffmpeg/ 
 %filter_setup
 }
 
