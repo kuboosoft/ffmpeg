@@ -3,8 +3,9 @@
 
 %define debug_package %{nil}
 
-%__global_requires_exclude_from		%{_libdir}
-%__global_provides_exclude_from		%{_libdir}
+%define _use_internal_dependency_generator 0
+%define __find_provides %{nil}
+%define __find_requires %{nil}
 
 ###
 
