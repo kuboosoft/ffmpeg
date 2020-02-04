@@ -3,13 +3,13 @@
 
 %define debug_package %{nil}
 
-%undefine %__find_provides
-%undefine %__find_requires
+%define __find_provides %{nil}
+%define __find_requires %{nil}
 
 # Do not try autogenerate prereq/conflicts/obsoletes and check files
-%undefine %___check_files 
-%undefine %___find_conflicts 
-%undefine %___find_obsoletes 
+%undefine ___check_files 
+%undefine ___find_conflicts 
+%undefine ___find_obsoletes 
 ###
 
 %global commit0 192d1d34eb3668fa27f433e96036340e1e5077a0
