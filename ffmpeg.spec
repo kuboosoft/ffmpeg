@@ -3,8 +3,8 @@
 
 %define debug_package %{nil}
 
-%__global_requires_exclude_from		%{?_libdir:%{_libdir}}
-%__global_provides_exclude_from		%{?_libdir:%{_libdir}} 
+%__global_requires_exclude_from		%{_libdir}
+%__global_provides_exclude_from		%{_libdir}
 
 ###
 
